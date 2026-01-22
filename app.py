@@ -171,11 +171,9 @@ def wrap_angle_deg(x: float) -> float:
 
 def tx_gain_sector(tx: LatLon, rx: LatLon, ant: AntennaConfig) -> float:
     """
-    Uproszczony zysk anteny sektorowej:
+    Zysk anteny sektorowej:
     - w wiązce (|delta| <= BW/2): max_gain
     - poza wiązką: liniowe narastanie tłumienia aż do front_to_back_db
-
-    To NIE jest model ITU, tylko praktyczny "pokazowy" model kierunkowości.
     """
     brng = bearing_deg(tx, rx)
     delta = wrap_angle_deg(brng - ant.azimuth_deg)
@@ -268,7 +266,6 @@ def build_profile_srtm(
 # -----------------------------
 def qinv(p: float) -> float:
     """
-    Q^{-1}(p) dla rozkładu normalnego: inverse survival function.
     W praktyce: norm.isf(p).
     """
     return float(norm.isf(p))
@@ -642,7 +639,6 @@ with st.sidebar:
         **Jak to czytać:**
         - P.1812 liczy tłumienie na podstawie **profilu terenu** + statystyk (**p czasu**, **pL lokalizacji**) i refrakcji (**DN**, **N0**).
         - P.2108 (opcjonalnie) dodaje **statystyczną stratę clutter** jako narzut w dB.
-        - Antena (sektor) w tej aplikacji to prosty model kierunkowości (nie norma ITU).
         """
     )
 
